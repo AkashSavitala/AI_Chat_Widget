@@ -7,7 +7,7 @@ body, h1, h2, p, ul, li {
 
 /* Apply some basic styling to the entire page */
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Times New Roman", Times, serif;
     background-color: #f0f0f0;
     color: #333;
 }
