@@ -1,5 +1,5 @@
 prevMessage = "";
-document.addEventListener("DOMContentLoaded", function () {
+//document.addEventListener("DOMContentLoaded", function () {
     const inputForm = document.getElementById("input-form");
     const inputField = document.getElementById("input-field");
     const conversation = document.getElementById("conversation");
@@ -94,4 +94,4 @@ document.addEventListener("DOMContentLoaded", function () {
     
     }
     declareRecog()
-});
+//});
