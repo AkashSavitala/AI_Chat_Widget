@@ -15,30 +15,25 @@
         <div id="chatbot">
             <div id="conversation">
               <div class="chatbot-message">
-                <p class="chatbot-text">Hi! 👋 It's great to see you!</p>
+                 <p class="chatbot-text">Hi! 👋 It's great to see you!</p>
               </div>
             </div>
-            <div class="chatbot-container">
-                
+            <div id="user-input"> <!-- Move this part to anchor the user input to the bottom -->
+                <form id="input-form">
+                    <input id="input-field" type="text" placeholder="Type your message here">
+                    <button id="submit-button" type="submit">
+                        <img class="send-icon" src="send-message.png" alt="">
+                    </button>
+                </form>
             </div>
-            <div id="chatbox-opener" class="circle-button" onclick="openChatbox()">
-                <a href="https://www.google.com/?client=safari" target = "_blank"></a>
-            
+            <div id="chatbox-opener" class="circle-button">
+                <a href="https://www.google.com/?client=safari" target="_blank">
+                    <b><p style="text-align:center; padding-top:30px;">CALL</p></b>
+                </a>
             </div>
             <script src="chatbot.js"></script>
-            <form id="input-form">
-              <message-container>
-                <input id="input-field" type="text" placeholder="Type your message here">
-                <button id="submit-button" type="submit">
-                  <img class="send-icon" src="send-message.png" alt="">
-                </button>
-              </message-container>
-                
-            </form>
         </div>  
-
     </div>
-
     <script src="chatbot.js"></script>
 </body>
 </html>
