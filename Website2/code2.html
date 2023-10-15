@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check In Page</title>
+</head>
+<body>
+    <h1>Welcome to Chat With a Pro (for Pros)</h1>
+    
+    <button onclick="showPhoneNumberInput()">Check In</button>
+    
+    <div id="phoneNumberInput" style="display:none;">
+        <form action="#" method="post">
+            <label for="phoneNumber">Enter the phone number you'd like to call from:</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" required>
+            <br>    
+        </form>
+        <button onclick="PhoneNumberSubmitted()">Submit</button>
+    </div>
+
+    <script>
+        function PhoneNumberSubmitted() {
+            // Add code here to perform actions when call is accepted.
+            console.log("Phone");
+            document.getElementById("accept").style.display = "block";
+        }
+    </script>
+
+    <script>
+        function showPhoneNumberInput() {
+            document.getElementById("phoneNumberInput").style.display = "block";
+        }
+    </script>
+
+    <div id="accept" style="display:none;">
+        
+        <form action="#" method="post">
+            <button onclick="acceptCall()">Accept Call</button>
+        </form>
+    </div>
+
+    <script>
+        function acceptCall() {
+            // Add code here to perform actions when call is accepted.
+            console.log("Call accepted!");
+            document.getElementById("accept").style.visibility=""
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
