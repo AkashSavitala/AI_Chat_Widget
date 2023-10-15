@@ -6,8 +6,7 @@ body {
 }
 
 .chatbot-container {
-    max-width: 600px;
-    margin: 20px;
+    margin: 60px;
     background-color: #f5f5f5;
     border: 1px solid #eef1f5;
     border-radius: 8px;
@@ -24,13 +23,14 @@ body {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
-
+//big thing
 #chatbot {
     background-color: #ffffff;
     border-radius: 0 0 8px 8px;
     overflow-y: auto;
     max-height: 400px;
-    padding: 20px;
+    max-width: 300px;
+    padding: 50px;
 }
 
 #conversation {
@@ -51,9 +51,10 @@ body {
 #input-field {
     flex: 1;
     height: 40px;
+    width: 200px;
     border: 1px solid #eef1f5;
     border-radius: 4px;
-    padding: 0 10px;
+    padding:  10px;
     font-size: 14px;
     transition: border-color 0.3s;
     background: #ffffff;
@@ -76,14 +77,7 @@ body {
     cursor: pointer;
 }
 
-.chatbot-message {
-    clear: both;
-    float: left;
-    padding: 10px;
-    max-width: 70%;
-    border-radius: 10px;
-    word-wrap: break-word;
-}
+
 
 .user-message {
     float: right;
@@ -92,18 +86,36 @@ body {
 }
 
 /* Add this CSS to style the chatbox-opener circle */
-.circle-button {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #354f9b;
+
+
+
+
+/* Add this CSS to create a box around user messages */
+/* Add this CSS to create a box around user messages */
+.user-text {
+    float: right;
+    background-color: #007bff;
     color: #fff;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    line-height: 40px;
-    cursor: pointer;
-    z-index: 999;
-    font-size: 1.2em;
+    border: 1px solid #074383;
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 70%;
+    margin: 5px; /* Add margin for spacing between messages */
 }
+
+/* Style chatbot messages that match a specific text */
+.chatbot-text{
+    float: left;
+    background-color: #9aa3ad;
+    color: #fff;
+    border: 1px solid #5c5f63;
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 70%;
+    margin: 5px; /* Add margin for spacing between messages */
+} 
+
+
+
+/* Rest of your CSS styles */
+

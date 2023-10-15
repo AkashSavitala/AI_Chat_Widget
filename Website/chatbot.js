@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Here, you can process the user's message and provide a response from the chatbot
         // For simplicity, we'll add a basic response.
         const chatbotResponse = "Thanks for your message! How can I assist you?";
+        //chatbotResponse.classList.add("user");
         addMessage("chatbot", chatbotResponse);
 
         // Clear the input field
