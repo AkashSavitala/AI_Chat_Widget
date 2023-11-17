@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rectangle Widget</title>
+        <style>
+            /* Define the rectangle styles */
+            .rectangle {
+                width: 200px;
+                height: 100px;
+                background-color: blue;
+            }
+            /* Define the rectangle styles when clicked */
+            .rectangle.clicked {
+                background-color: red;
+            }
+        </style>
+        
+    </head>
+    </head>
+        <body>
+            <div class="rectangle"></div>
+        </body>
+        <script>
+            
+            // Add an event listener to the rectangle
+            document.querySelector('.rectangle').addEventListener('click', ()=> {
+                // Toggle the clicked class to change the color
+                document.querySelector('.rectangle').classList.toggle('clicked');
+            });
+        </script>
+    </html>
