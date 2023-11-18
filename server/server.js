@@ -76,23 +76,24 @@ const createWebSocketServer = function (server) {
     });
     });
     function processMessage(message, ws){
-        console.log('Received message:', message);
-            const parsedMessage = JSON.parse(message);
-            //First the client and the professional connect to the server
-            if (parsedMessage.method === 'clientConnect') {
-                clientConnect(ws);
-            }
-            else if(parsedMessage.method === 'professionalConnect') {
-                professionalConnect(ws);
-            //then if the client wants to call the professional, the server finds an available professional and sends the message history to the professional
-            }else if(parsedMessage.method === 'clientFindCall'){
-                clientFindCall(ws);
-            //now either the professional or the client can send messages to each other
-            }else if(parsedMessage.method === 'clientMessage') {
-                clientMessage(ws, parsedMessage);
-            }else if(parsedMessage.method === 'professionalMessage') {
-                professionalMessage(ws, parsedMessage);  
-            }
+        const parsedMessage = JSON.parse(message);
+        console.log('Received message:', parsedMessage);
+
+        //First the client and the professional connect to the server
+        if (parsedMessage.method === 'clientConnect') {
+            clientConnect(ws);
+        }
+        else if(parsedMessage.method === 'professionalConnect') {
+            professionalConnect(ws);
+        //then if the client wants to call the professional, the server finds an available professional and sends the message history to the professional
+        }else if(parsedMessage.method === 'clientFindCall'){
+            clientFindCall(ws);
+        //now either the professional or the client can send messages to each other
+        }else if(parsedMessage.method === 'clientMessage') {
+            clientMessage(ws, parsedMessage);
+        }else if(parsedMessage.method === 'professionalMessage') {
+            professionalMessage(ws, parsedMessage);  
+        }
     }
     //message has a method which is professionalConnect
     function professionalConnect(ws){
@@ -105,11 +106,12 @@ const createWebSocketServer = function (server) {
         const client = new Client(ws);
         clients.push(client);
         console.log('Added client to the array:', client);
+        ws.send(JSON.stringify({method: 'clientConnect', message: "congrats you are connected"}));
     }
     //message has a method which is clientFindCall
     function clientFindCall(ws){
         const client = clients.find(client => client.connection === ws);
-        const professional = professionals.find(professional => professional.isAvailable);
+        const professional = professionals.find(professional => !professional.inCall);
         if(professional){
             professional.isAvailable = false;
             client.inCall = true;
@@ -137,6 +139,15 @@ const createWebSocketServer = function (server) {
         console.log('Professional message:', professional.currentMessage);
     }
 }
-//createWebSocketServer({ port: 8080 });
+clientConnectJSON={
+    method: "clientConnect"
+}  
+professionalConnectJSON={
+    method: "professionalConnect"
+}
+clientFindCallJSON={
+    method: "clientFindCall"
+}
+
 module.exports = {createWebSocketServer};
 

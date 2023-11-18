@@ -1,13 +1,14 @@
 const testModule= require("node:test");
 const startServer = require("./serverTestUtils").startServer;
 const waitForSocketState = require("./serverTestUtils").waitForSocketState;
+const sleep = require("./serverTestUtils").sleep;
+
 const WebSocket = require('ws');
 
 const port=8080;
-const port2=8081;
 testModule.describe("WebSocket Server", () => {
     beforeAll(async () => {
-       let server= await startServer(port);
+        startServer(port);
     });
     afterAll(() => {});
 
@@ -41,9 +42,11 @@ testModule.describe("WebSocket Server", () => {
         });
 
         client.send(JSON.stringify(clientConnectJSON));
+        sleep(1000);
         professional.send(JSON.stringify(professionalConnectJSON));
+        sleep(1000);
         client.send(JSON.stringify(clientFindCallJSON));
-        
+        sleep(1000);
         //client should have an empty array
         //professional should have ID of client
         expect(clientRecieved).toEqual([]);

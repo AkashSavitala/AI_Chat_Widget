@@ -1,14 +1,9 @@
+const { TIMEOUT } = require('dns');
 const http= require('http');
 const createWebSocketServer = require("./server").createWebSocketServer;
-
-const startServer = function (port) {
-  const server = http.createServer();
-  createWebSocketServer({server:server});
-
-  return new Promise((resolve) => {
-    server.listen(port, () => resolve(server));
-  });
-}
+const startServer = function(port) {
+    createWebSocketServer({port: port});
+}  
 const waitForSocketState = function(socket, state) {
     return new Promise(function (resolve) {
       setTimeout(function () {
@@ -20,7 +15,11 @@ const waitForSocketState = function(socket, state) {
       }, 5);
     });
   }
+  const sleep= function(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
   module.exports = {
     startServer,
-    waitForSocketState
+    waitForSocketState,
+    sleep
   };
