@@ -40,9 +40,8 @@ client.onopen = function(event) {
             professional.send(JSON.stringify(professionalConnectJSON));
             sleep(1000).then(()=>{
                 client.send(JSON.stringify(clientFindCallJSON));
-            });
-        })
-        
+                });
+        })        
     }
 }
 professional.onopen = function(event) { 
@@ -58,7 +57,7 @@ professional.onopen = function(event) {
         })
     }
 }
-sleep(10000).then(() => {
-console.log(clientRecieved);
-console.log(professionalRecieved);
+sleep(20000).then(() => {
+    console.log(clientRecieved);
+    console.log(professionalRecieved);
 });

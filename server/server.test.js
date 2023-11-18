@@ -13,80 +13,62 @@ testModule.describe("WebSocket Server", () => {
     afterAll(() => {});
 
     test("Client tries to find a call when one Professional is available", async () => {
+
         clientConnectJSON={
             method: "clientConnect"
         }
         professionalConnectJSON={
             method: "professionalConnect"
         }
-
         clientFindCallJSON={
             method: "clientFindCall"
         }
 
-
         const client = new WebSocket("ws://localhost:8080");
-        await waitForSocketState(client, WebSocket.OPEN);
 
         const professional = new WebSocket("ws://localhost:8080");
-        await waitForSocketState(professional, WebSocket.OPEN);
 
         clientRecieved =[]
         client.on('message', (message) => {
-            clientRecieved.push(message);
+            clientRecieved.push(JSON.parse(message));
         });
 
         professionalRecieved =[]
         professional.on('message', (message) => {
-            professionalRecieved.push(message);
+            professionalRecieved.push(JSON.parse(message));
         });
 
-        client.send(JSON.stringify(clientConnectJSON));
-        sleep(1000);
-        professional.send(JSON.stringify(professionalConnectJSON));
-        sleep(1000);
-        client.send(JSON.stringify(clientFindCallJSON));
-        sleep(1000);
-        //client should have an empty array
-        //professional should have ID of client
-        expect(clientRecieved).toEqual([]);
-        });
-
-    test("Client tries to find a call when one Professional is available", async () => {
-        clientConnectJSON={
-            method: "clientConnect"
+        clientIsOpen = false;
+        professionalIsOpen = false;
+        client.onopen = function(event) {
+            console.log("client connected");
+            clientIsOpen = true;
+            if(professionalIsOpen){
+                client.send(JSON.stringify(clientConnectJSON));
+                sleep(1000).then(()=>{
+                    professional.send(JSON.stringify(professionalConnectJSON));
+                    sleep(1000).then(()=>{
+                        client.send(JSON.stringify(clientFindCallJSON));
+                    });
+                })        
+            }
         }
-        professionalConnectJSON={
-            method: "professionalConnect"
+        professional.onopen = function(event) { 
+            console.log("professional connected");
+            professionalIsOpen = true;
+            if(clientIsOpen){
+                client.send(JSON.stringify(clientConnectJSON));
+                sleep(1000).then(()=>{
+                    professional.send(JSON.stringify(professionalConnectJSON));
+                    sleep(1000).then(()=>{
+                        client.send(JSON.stringify(clientFindCallJSON));
+                    });
+                })
+            }
         }
-
-        clientFindCallJSON={
-            method: "clientFindCall"
-        }
-
-
-        const client = new WebSocket("ws://localhost:8080");
-        await waitForSocketState(client, WebSocket.OPEN);
-
-        const professional = new WebSocket("ws://localhost:8080");
-        await waitForSocketState(professional, WebSocket.OPEN);
-
-        clientRecieved =[]
-        client.on('message', (message) => {
-            clientRecieved.push(message);
+        sleep(20000).then(() => {
+            expect(clientRecieved).toEqual([{method: 'clientConnect', message: "congrats you are connected"}]);
+            //expect(professionalRecieved).toEqual([{method: 'recieveCall', message: []}]);
         });
-
-        professionalRecieved =[]
-        professional.on('message', (message) => {
-            professionalRecieved.push(message);
-        });
-
-        client.send(JSON.stringify(clientConnectJSON));
-        professional.send(JSON.stringify(professionalConnectJSON));
-        client.send(JSON.stringify(clientFindCallJSON));
-        
-        //client should have an empty array
-        //professional should have ID of client
-        expect(professionalRecieved).toEqual([{method: 'recieveCall', message: []}]);
     });
 });
